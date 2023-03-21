@@ -16,12 +16,6 @@ var (
 )
 
 func main() {
-	itemConvert := api.NewItemConvertAPI()
-	itemConvert.Request.AdzoneID = 604900033
-	itemConvert.Request.Fields = "num_iid,click_url"
-	itemConvert.Request.NumIIDS = "123,456"
-	do(itemConvert)
-
 	tpwdCreate := api.NewTpwdCreateAPI()
 	tpwdCreate.Request.Url = "https://s.click.taobao.com/bKX3JKu"
 	do(tpwdCreate)

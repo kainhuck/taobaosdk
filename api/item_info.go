@@ -5,14 +5,14 @@ import (
 )
 
 type ItemInfoReq struct {
-	NumIids  string
+	NumIIDS  string
 	Platform int
 	Ip       string
 }
 
 func (req *ItemInfoReq) Params() map[string]string {
 	return map[string]string{
-		"num_iids": req.NumIids,
+		"num_iids": req.NumIIDS,
 		"platform": strconv.Itoa(req.Platform),
 		"ip":       req.Ip,
 	}
