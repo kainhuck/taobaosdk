@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/kainhuck/taobaosdk"
 	"github.com/kainhuck/taobaosdk/api"
@@ -8,18 +9,28 @@ import (
 	"os"
 )
 
+var (
+	appKey    = os.Getenv("top_app_key")
+	appSecret = os.Getenv("top_app_secret")
+	client    = taobaosdk.NewClient(appKey, appSecret)
+)
+
 func main() {
-	appKey := os.Getenv("top_app_key")
-	appSecret := os.Getenv("top_app_secret")
+	itemConvert := api.NewItemConvertAPI()
+	itemConvert.Request.AdzoneID = 604900033
+	itemConvert.Request.Fields = "num_iid,click_url"
+	itemConvert.Request.NumIIDS = "123,456"
+	do(itemConvert)
 
-	// 新建client
-	client := taobaosdk.NewClient(appKey, appSecret)
+	tpwdCreate := api.NewTpwdCreateAPI()
+	tpwdCreate.Request.Url = "https://s.click.taobao.com/bKX3JKu"
+	do(tpwdCreate)
+}
 
-	// 淘宝客-公用-淘宝客商品详情查询(简版) | 所有支持的接口都位于 github.com/kainhuck/taobaosdk/api 下
-	itemInfo := api.NewItemInfoAPI()
-	itemInfo.Request.NumIids = "123,456"        // 设置参数
-	if err := client.Do(itemInfo); err != nil { // 通过client发送请求
+func do(api api.Api) {
+	if err := client.Do(api); err != nil { // 通过client发送请求
 		log.Fatal(err)
 	}
-	fmt.Println(itemInfo.Response) // 获取返回信息
+	bts, _ := json.MarshalIndent(api.GetResponse(), "", "  ")
+	fmt.Println(string(bts)) // 获取返回信息
 }

@@ -1,7 +1,6 @@
 package api
 
 import (
-	"encoding/json"
 	"strconv"
 )
 
@@ -19,22 +18,16 @@ func (req *ItemInfoReq) Params() map[string]string {
 	}
 }
 
-type ItemInfoResp map[string]interface{}
-
-func (resp *ItemInfoResp) Unmarshal(bts []byte) error {
-	return json.Unmarshal(bts, resp)
-}
-
 type ItemInfoAPI struct {
 	Request  *ItemInfoReq
-	Response *ItemInfoResp
+	Response *CommonResp
 }
 
 func NewItemInfoAPI() *ItemInfoAPI {
 
 	return &ItemInfoAPI{
 		Request:  new(ItemInfoReq),
-		Response: new(ItemInfoResp),
+		Response: new(CommonResp),
 	}
 }
 
