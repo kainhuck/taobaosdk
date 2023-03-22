@@ -12,7 +12,7 @@ func (req *TpwdCreateReq) Params() map[string]string {
 	}
 }
 
-type TpwdResponse struct {
+type TpwdCreateResp struct {
 	ErrorResponse         ErrorResponse `json:"error_response"`
 	TbkTpwdCreateResponse struct {
 		Data struct {
@@ -23,19 +23,19 @@ type TpwdResponse struct {
 	} `json:"tbk_tpwd_create_response"`
 }
 
-func (resp *TpwdResponse) Unmarshal(bts []byte) error {
+func (resp *TpwdCreateResp) Unmarshal(bts []byte) error {
 	return json.Unmarshal(bts, resp)
 }
 
 type TpwdCreateAPI struct {
 	Request  *TpwdCreateReq
-	Response *TpwdResponse
+	Response *TpwdCreateResp
 }
 
 func NewTpwdCreateAPI() *TpwdCreateAPI {
 	return &TpwdCreateAPI{
 		Request:  new(TpwdCreateReq),
-		Response: new(TpwdResponse),
+		Response: new(TpwdCreateResp),
 	}
 }
 
